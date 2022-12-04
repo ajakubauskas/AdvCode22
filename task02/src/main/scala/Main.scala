@@ -18,8 +18,11 @@ object Main {
       val s = fileStrings.next()
 
       if (s.nonEmpty) {
-        val Array(handA, handB) = s.split(" ").map(Hand.handMap)
-        val roundScore = score(handA, handB)
+        val Array(handS, outcomeS) = s.split(" ")
+        val hand = Hand.handMap(handS)
+        val outcome = Outcome.outcomeMap(outcomeS)
+
+        val roundScore = score(hand, outcome)
         totalScore.prepend(roundScore)
       }
 
@@ -41,6 +44,22 @@ object Main {
         else if (b.isDraw(a)) 3
         else 0
       } + Hand.handValue(b)
+  }
+
+  private def score(a: Hand, b: Outcome): Int = {
+    score(a, myHand(a, b))
+  }
+
+  private def myHand(other: Hand, o: Outcome): Hand = (other, o) match {
+    case (Rock, Win) => Paper
+    case (Rock, Draw) => Rock
+    case (Rock, Lose) => Scissors
+    case (Paper, Win) => Scissors
+    case (Paper, Draw) => Paper
+    case (Paper, Lose) => Rock
+    case (Scissors, Win) => Rock
+    case (Scissors, Draw) => Scissors
+    case (Scissors, Lose) => Paper
   }
 
 }
@@ -74,5 +93,18 @@ object Hand {
     Rock -> 1,
     Paper -> 2,
     Scissors -> 3
+  )
+}
+
+
+sealed trait Outcome
+object Win extends Outcome
+object Draw extends Outcome
+object Lose extends Outcome
+object Outcome {
+  val outcomeMap = Map(
+    "X" -> Lose,
+    "Y" -> Draw,
+    "Z" -> Win
   )
 }
