@@ -1,0 +1,10 @@
+*/target/*
+*/*/target/*
+*/*/*/target/*
+*/*/*/*/target/*
+*.class
+*.cache
+*/.idea/*
+*/.bsp/
+*/logs/
+*/*.iml
