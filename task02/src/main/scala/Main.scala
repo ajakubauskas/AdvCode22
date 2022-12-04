@@ -6,22 +6,41 @@ object Main {
   def main(args: Array[String]): Unit = {
 
     val inputFileName = "input"
-    //    val inputFileName = "example"
+//        val inputFileName = "example"
 
     val src = Source.fromFile(inputFileName + ".txt")
 
     val fileStrings = src.getLines
 
+    val totalScore = scala.collection.mutable.Buffer.empty[Int]
 
     while(fileStrings.hasNext) {
       val s = fileStrings.next()
+
+      if (s.nonEmpty) {
+        val Array(handA, handB) = s.split(" ").map(Hand.handMap)
+        val roundScore = score(handA, handB)
+        totalScore.prepend(roundScore)
+      }
+
     }
 
 
     src.close()
 
 
+    println(totalScore.sum)
 
+
+  }
+
+
+  private def score(a: Hand, b: Hand): Int = {
+      {
+        if (b.isWin(a)) 6
+        else if (b.isDraw(a)) 3
+        else 0
+      } + Hand.handValue(b)
   }
 
 }
@@ -49,5 +68,11 @@ object Hand {
     "X" -> Rock,
     "Y" -> Paper,
     "Z" -> Scissors
+  )
+
+  val handValue = Map(
+    Rock -> 1,
+    Paper -> 2,
+    Scissors -> 3
   )
 }
