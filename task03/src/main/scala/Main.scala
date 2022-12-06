@@ -15,20 +15,16 @@ object Main {
     var sum = 0
 
     while(fileStrings.hasNext) {
-      val s = fileStrings.next()
-      if (s.nonEmpty) {
-        val (compA, compB) = s.splitAt(s.length/2)
+      val List(a, b, c) = fileStrings.take(3).toList
 
-        val common = compA.toSet.intersect(compB.toSet)
+      val ab = a.toSet intersect b.toSet
+      val bc = b.toSet intersect c.toSet
+      val common = ab intersect bc
 
-//        println(common)
+      val localSum = common.map(score).sum
 
-        val localSum = common.map(score).sum
-
-//        println(localSum)
 
         sum += localSum
-      }
 
     }
 
