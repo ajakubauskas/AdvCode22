@@ -46,7 +46,7 @@ object CraneMove {
 
 case class State(private val crates: Array[Array[Char]]) {
   def move(m: CraneMove) = {
-    crates(m.to) = crates(m.from).take(m.size).reverse ++ crates(m.to)
+    crates(m.to) = crates(m.from).take(m.size) ++ crates(m.to)
     crates(m.from) = crates(m.from).drop(m.size)
   }
   def top: String = {
