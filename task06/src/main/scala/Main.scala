@@ -21,7 +21,7 @@ object Main {
       if (line.nonEmpty) {
 
 
-        marker = line.sliding(4).indexWhere(allCharsDifferent) + 4
+        marker = line.sliding(14).indexWhere(allCharsDifferent) + 14
 
       }
 
@@ -34,7 +34,7 @@ object Main {
 
   }
 
-  private def allCharsDifferent(s: String) = s.toSet.size == 4
+  private def allCharsDifferent(s: String) = s.toSet.size == 14
 
 
 }
