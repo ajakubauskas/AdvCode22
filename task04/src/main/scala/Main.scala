@@ -23,7 +23,7 @@ object Main {
         val rangeA = Interval.fromString(a)
         val rangeB = Interval.fromString(b)
 
-        if (rangeA.contains(rangeB) || rangeB.contains(rangeA))
+        if (rangeA.overlap(rangeB))
           count += 1
 
       }
@@ -45,6 +45,11 @@ object Main {
 case class Interval(from: Int, to: Int) {
   def contains(other: Interval): Boolean =
     from <= other.from && other.to <= to
+
+  def overlap(other: Interval): Boolean = {
+    from <= other.to && other.from <= to
+  }
+
 }
 object Interval {
   def fromString(str: String) = {
