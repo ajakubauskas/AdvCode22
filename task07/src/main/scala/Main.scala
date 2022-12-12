@@ -1,4 +1,5 @@
 
+import scala.annotation.tailrec
 import scala.io.Source
 
 object Main {
@@ -11,6 +12,9 @@ object Main {
     val src = Source.fromFile(inputFileName + ".txt")
 
     val fileStrings = src.getLines
+
+    def go(itr: Iterator[String]): Dir = {
+    }
 
 
     while(fileStrings.hasNext) {
@@ -33,11 +37,19 @@ object Main {
 
 
 
+  @tailrec
+  private def wrapUpDir(declarations: List[Entity], entities: List[Entity]): (Dir, List[Entity]) = declarations match {
+    case Ls :: rest => wrapUpDir(rest, entities)
+    case CdDir(dirName) :: rest => (Dir(dirName, entities), rest)
+    case (f: File) :: rest => ???
+    case (d: Dir) :: rest => ???
+  }
+
 }
 
 sealed trait Entity
 case class Dir(name: String, content: List[Entity]) extends Entity
-case class File(name : String, size: Long)
+case class File(name : String, size: Long) extends Entity
 
 sealed trait Command extends Entity
 case object Ls extends Command
