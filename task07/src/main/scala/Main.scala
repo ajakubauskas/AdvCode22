@@ -55,6 +55,9 @@ sealed trait Command
 case object Ls extends Command
 case object CdUp extends Command
 case class CdDir(dir: String) extends Command
+sealed trait Declaration extends Command
+case class DecDir(name: String) extends Declaration
+case class DecFile(name: String, size: Int) extends Declaration
 
 object Command {
   def fromStr(s: String) = s match {
